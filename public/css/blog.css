@@ -128,3 +128,7 @@ h6 {
 .conteneur-base {
     min-height: 50vh;
 }
+
+.bandeau-header {
+    background: rgb(147, 210, 231);
+}
