@@ -21,7 +21,8 @@ Blog | Détails article
 
           <p class="card-text">{{ ArticleBDD.contenu|raw }}</p>
 
-          <a href="{{ path('blog')}}" class="stretched-link">Lire la suite</a>
+          <a href="{{ path('blog')}}" class="stretched-link">Retour aux articles</a>
+          <a href="{{ path('blog_edit', {'id' : ArticleBDD.id } )}}" class="stretched-link">Modification</a>
 
         </div>
         <div class="col-md-5 d-none d-lg-block">
