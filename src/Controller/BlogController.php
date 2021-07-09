@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -118,7 +120,7 @@ class BlogController extends AbstractController
      * @Route ("/blog/{id}/edit", name="blog_edit")
      */
 
-     public function create(Article $article = null, Request $request, EntityManagerInterface $manager): Response
+     public function create(Request $request, EntityManagerInterface $manager,Article $article = null): Response
      {
          // Si la variable $article N'EST PAS (null), si elle ne contient aucun article de la BDD, cela veut dire nous avons envoyé la route '/blog/new', c'est une insertion, on entre dans le IF et on crée une nouvelle instance de l'entité Article, création d'un nouvel article
          // Si la variable $article contient un article de la BDD, cela veut dire que nous avons envoyé la route '/blog/id/edit', c'est une modifiction d'article, on entre pas dans le IF, $article ne sera pas null, il contient un article de la BDD, l'article à modifier
@@ -168,7 +170,7 @@ class BlogController extends AbstractController
     * @Route("/blog/{id}", name="blog_show")
     */
 
-     public function show(Article $article): response
+     public function show(Article $article, Request $request): response
      {
          // L'id transmit dans l'URL est envoyé directement en argument de la fonction show(), ce qui nous permet d'avoir accès à l'id de l'article a selectionner en BDD au sein de la méthode show()
         // dump($id);
@@ -184,8 +186,17 @@ class BlogController extends AbstractController
         // $article = $repoArticle->find($id);
         dump($article);
 
+        // Traitement commentaire article (Formulaire + insertion)
+        $comment = new Comment;
+
+        $formComment = $this->createForm(CommentType::class, $comment);
+
+        $formComment->handleRequest($request);
+        dump($request);
+        
         return $this->render('blog/show.html.twig' , [
-            'ArticleBDD' => $article // on transmet au template les données de l'article selectionné en BDD afin de les traiter avec le langage Twig dans le template
+            'ArticleBDD' => $article, // on transmet au template les données de l'article selectionné en BDD afin de les traiter avec le langage Twig dans le template
+            'formComment' => $formComment->createView()
         ]);
     }
 }

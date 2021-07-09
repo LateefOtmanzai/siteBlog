@@ -13,7 +13,7 @@ Blog | Détails article
 <div class="col-md-12 ">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative">
         <div class="col-md-7  p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">World</strong>
+          <strong class="d-inline-block mb-2 text-primary">{{ ArticleBDD.category.titre }}</strong>
 
           <h3 class="mb-0">{{ ArticleBDD.titre }}</h3>
 
@@ -21,8 +21,8 @@ Blog | Détails article
 
           <p class="card-text">{{ ArticleBDD.contenu|raw }}</p>
 
-          <a href="{{ path('blog')}}" class="stretched-link">Retour aux articles</a>
-          <a href="{{ path('blog_edit', {'id' : ArticleBDD.id } )}}" class="stretched-link">Modification</a>
+          <a href="{{ path('blog')}}" >Retour aux articles</a>
+          <a href="{{ path('blog_edit', {'id' : ArticleBDD.id } )}}" >Modification</a>
 
         </div>
         <div class="col-md-5 d-none d-lg-block">
@@ -30,6 +30,38 @@ Blog | Détails article
 
         </div>
       </div>
+
+      {# Affichage de formulaire d'ajouter de commentaire #}
+      <h4 class="mt-5 mb-2">Donné votre avis.....</h4>
+      {{ form_start(formComment) }} 
+           {{ form_row(formComment.auteur) }}
+
+           {{ form_row(formComment.Commentaire) }}
+
+           <button type="submit" class="btn btn-dark mt-2">Poster</button>
+
+           {{ form_end(formComment) }} 
+      {# Affichage des commentaires #}
+      <h4 class="mt-5 mb-2">Vos réactions.....</h4>
+
+      <div class="row">
+      {# articleBDD.comments : objet contenant tout les commentaires liès à l'article #}
+        {# Gracve aux relations entre les tables (bi-directionnelle), en selectionnant dans la table 'Article', nous avons accès automatiquement à toute les correspondances dans les autres tables #}
+      {% for oneComment in ArticleBDD.comments %}
+             {# {{ dump(oneComment) }} #}
+
+             <div class="row shadow rounded mx-0 px-0 mb-2">
+                    <div class="col-md-4">
+                        <strong >{{ oneComment.auteur }}</strong>
+                        <small class="fst-italic">Posté le {{ oneComment.date|date('d/m/Y à H:i:s') }}</small>
+                    </div>
+                    <div class="col-md-8 py-2">
+                    {{ oneComment.Commentaire|raw }}
+                    </div>
+             </div>
+      {% endfor %}
+      </div>
+
     </div>
 
 {% endblock %}

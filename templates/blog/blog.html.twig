@@ -18,7 +18,7 @@
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         
         <div class="col-md-7 p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">World</strong>
+          <strong class="d-inline-block mb-2 text-primary">{{ oneArticle.category.titre }}</strong>
           <h3 class="mb-0">{{ oneArticle.titre }}</h3>
 
           {# date() : filtre TWIG qui permet de formater une date / heure #}
@@ -26,7 +26,7 @@
 
           {# slice() : fonction Twig permettant de retourner une partie de la chaine de caractères #}
           {# arguments: 1. La position de départ | 2. Le nombre de caractères souhaités #}
-          <p class="card-text mb-auto">{{ oneArticle.contenu|slice(0, 118)|raw }}[....]</p>
+          <p class="card-text mb-auto">{{ oneArticle.contenu|slice(0, 80)|raw }}[....]</p>
 
           {# On définit le lien permettant de rediriger l'internaute vers l'affichage du détail de l'article #}
           {# 'blog_show' correspond à la route permettant l'affichage du détail de l'article #}

@@ -15,11 +15,13 @@
       Création Article
       {% endif %}
       </h1>
-
-      {# ouverture de la balise <form> + méthode "" + action=""  #}
       {{ form_start(formArticle) }}
 
+      {# ouverture de la balise <form> + méthode "" + action=""  #}
+
       {{ form_row(formArticle.titre, {'label' : "Titre de l'article"}) }}
+
+      {{ form_row(formArticle.category, {'label' : "Catégoire de l'article"}) }}
 
       {{ form_row(formArticle.contenu) }}
 
