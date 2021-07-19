@@ -30,7 +30,7 @@ class ArticleFixtures extends Fixture
            {
                // $faker->paragraph(5) retourne 1 array, setContenu attend une chaine de caractéres en arguments 
                // join (alias implode) permet d'extraire  
-               $contenu = '<p>' . join($faker->paragraphs(5), '<p></p>') . '</p>';
+               $contenu = '<p>' . join($faker->paragraphs(5), '</p><p>') . '</p>';
 
 
                $article = new Article;
@@ -48,7 +48,7 @@ class ArticleFixtures extends Fixture
                 for ($cmt=1; $cmt <= mt_rand(4,10) ; $cmt++) { 
 
                     // Traitements des paragraphs de commentaire
-                    $contenu = '<p>' . join($faker->paragraphs(2), '<p></p>') . '</p>';
+                    $contenu = '<p>' . join($faker->paragraphs(2), '</p><p>') . '</p>';
 
                     $comment = new Comment;
 
